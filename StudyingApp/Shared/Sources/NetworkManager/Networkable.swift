@@ -10,6 +10,7 @@ import Combine
 
 protocol Networkable {
     func sendRequest<T: Decodable>(endpoint: EndPoint) async throws -> T
+    func sendRequest<T>(for url: URL) async throws -> T where T : Decodable
 }
 
 extension Networkable {

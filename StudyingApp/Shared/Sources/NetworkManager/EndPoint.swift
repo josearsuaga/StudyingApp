@@ -19,10 +19,10 @@ public protocol EndPoint {
 }
 
 extension EndPoint {
-    var scheme: String {
+    public var scheme: String {
         return "https"
     }
-    var host: String {
-        return ""
+    public var host: String {
+        return "pokeapi.co"
     }
 }

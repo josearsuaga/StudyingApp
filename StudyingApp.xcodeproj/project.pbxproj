@@ -11,8 +11,8 @@
 		825EAAFD2C38C0DC004F5D71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EAAFC2C38C0DC004F5D71 /* ContentView.swift */; };
 		825EAAFF2C38C0DD004F5D71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825EAAFE2C38C0DD004F5D71 /* Assets.xcassets */; };
 		825EAB022C38C0DD004F5D71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825EAB012C38C0DD004F5D71 /* Preview Assets.xcassets */; };
-		825EAB142C38CA7C004F5D71 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = 825EAB132C38CA7C004F5D71 /* Home */; };
-		825EAB182C38D1DD004F5D71 /* NetworkManager in Frameworks */ = {isa = PBXBuildFile; productRef = 825EAB172C38D1DD004F5D71 /* NetworkManager */; };
+		82CEF2B82C390309006C56E5 /* Features in Frameworks */ = {isa = PBXBuildFile; productRef = 82CEF2B72C390309006C56E5 /* Features */; };
+		82CEF2BA2C390806006C56E5 /* Shared in Frameworks */ = {isa = PBXBuildFile; productRef = 82CEF2B92C390806006C56E5 /* Shared */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,7 +22,8 @@
 		825EAAFE2C38C0DD004F5D71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		825EAB012C38C0DD004F5D71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		825EAB082C38C443004F5D71 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Features; path = StudyingApp/Features; sourceTree = "<group>"; };
-		825EAB162C38CB20004F5D71 /* DataManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DataManagement; path = StudyingApp/DataManagement; sourceTree = "<group>"; };
+		825EAB242C38FA6C004F5D71 /* Shared */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Shared; path = StudyingApp/Shared; sourceTree = "<group>"; };
+		82CEF2B62C38FF4F006C56E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,8 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825EAB142C38CA7C004F5D71 /* Home in Frameworks */,
-				825EAB182C38D1DD004F5D71 /* NetworkManager in Frameworks */,
+				82CEF2B82C390309006C56E5 /* Features in Frameworks */,
+				82CEF2BA2C390806006C56E5 /* Shared in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,7 +42,7 @@
 		825EAAEE2C38C0DC004F5D71 = {
 			isa = PBXGroup;
 			children = (
-				825EAB162C38CB20004F5D71 /* DataManagement */,
+				825EAB242C38FA6C004F5D71 /* Shared */,
 				825EAB082C38C443004F5D71 /* Features */,
 				825EAAF92C38C0DC004F5D71 /* StudyingApp */,
 				825EAAF82C38C0DC004F5D71 /* Products */,
@@ -60,6 +61,7 @@
 		825EAAF92C38C0DC004F5D71 /* StudyingApp */ = {
 			isa = PBXGroup;
 			children = (
+				82CEF2B62C38FF4F006C56E5 /* Info.plist */,
 				825EAAFA2C38C0DC004F5D71 /* StudyingAppApp.swift */,
 				825EAAFC2C38C0DC004F5D71 /* ContentView.swift */,
 				825EAAFE2C38C0DD004F5D71 /* Assets.xcassets */,
@@ -100,8 +102,8 @@
 			);
 			name = StudyingApp;
 			packageProductDependencies = (
-				825EAB132C38CA7C004F5D71 /* Home */,
-				825EAB172C38D1DD004F5D71 /* NetworkManager */,
+				82CEF2B72C390309006C56E5 /* Features */,
+				82CEF2B92C390806006C56E5 /* Shared */,
 			);
 			productName = StudyingApp;
 			productReference = 825EAAF72C38C0DC004F5D71 /* StudyingApp.app */;
@@ -297,6 +299,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"StudyingApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StudyingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -325,6 +328,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"StudyingApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StudyingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -374,14 +378,13 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		825EAB132C38CA7C004F5D71 /* Home */ = {
+		82CEF2B72C390309006C56E5 /* Features */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 825EAB092C38C4D3004F5D71 /* XCLocalSwiftPackageReference "StudyingApp/Features" */;
-			productName = Home;
+			productName = Features;
 		};
-		825EAB172C38D1DD004F5D71 /* NetworkManager */ = {
+		82CEF2B92C390806006C56E5 /* Shared */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = NetworkManager;
+			productName = Shared;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

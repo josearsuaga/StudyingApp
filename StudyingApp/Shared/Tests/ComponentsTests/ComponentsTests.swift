@@ -1,7 +1,7 @@
 import XCTest
-@testable import DataManagement
+@testable import Components
 
-final class DataManagementTests: XCTestCase {
+final class ComponentsTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest
