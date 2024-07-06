@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Home
 
 @main
 struct StudyingAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
