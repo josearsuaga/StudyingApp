@@ -11,7 +11,8 @@
 		825EAAFD2C38C0DC004F5D71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EAAFC2C38C0DC004F5D71 /* ContentView.swift */; };
 		825EAAFF2C38C0DD004F5D71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825EAAFE2C38C0DD004F5D71 /* Assets.xcassets */; };
 		825EAB022C38C0DD004F5D71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825EAB012C38C0DD004F5D71 /* Preview Assets.xcassets */; };
-		825EAB0D2C38C59F004F5D71 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = 825EAB0C2C38C59F004F5D71 /* Home */; };
+		825EAB142C38CA7C004F5D71 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = 825EAB132C38CA7C004F5D71 /* Home */; };
+		825EAB182C38D1DD004F5D71 /* NetworkManager in Frameworks */ = {isa = PBXBuildFile; productRef = 825EAB172C38D1DD004F5D71 /* NetworkManager */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		825EAAFE2C38C0DD004F5D71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		825EAB012C38C0DD004F5D71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		825EAB082C38C443004F5D71 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Features; path = StudyingApp/Features; sourceTree = "<group>"; };
+		825EAB162C38CB20004F5D71 /* DataManagement */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DataManagement; path = StudyingApp/DataManagement; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,7 +30,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825EAB0D2C38C59F004F5D71 /* Home in Frameworks */,
+				825EAB142C38CA7C004F5D71 /* Home in Frameworks */,
+				825EAB182C38D1DD004F5D71 /* NetworkManager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,9 +41,11 @@
 		825EAAEE2C38C0DC004F5D71 = {
 			isa = PBXGroup;
 			children = (
+				825EAB162C38CB20004F5D71 /* DataManagement */,
 				825EAB082C38C443004F5D71 /* Features */,
 				825EAAF92C38C0DC004F5D71 /* StudyingApp */,
 				825EAAF82C38C0DC004F5D71 /* Products */,
+				825EAB122C38CA7C004F5D71 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +76,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		825EAB122C38CA7C004F5D71 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -88,7 +100,8 @@
 			);
 			name = StudyingApp;
 			packageProductDependencies = (
-				825EAB0C2C38C59F004F5D71 /* Home */,
+				825EAB132C38CA7C004F5D71 /* Home */,
+				825EAB172C38D1DD004F5D71 /* NetworkManager */,
 			);
 			productName = StudyingApp;
 			productReference = 825EAAF72C38C0DC004F5D71 /* StudyingApp.app */;
@@ -361,9 +374,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		825EAB0C2C38C59F004F5D71 /* Home */ = {
+		825EAB132C38CA7C004F5D71 /* Home */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 825EAB092C38C4D3004F5D71 /* XCLocalSwiftPackageReference "StudyingApp/Features" */;
 			productName = Home;
+		};
+		825EAB172C38D1DD004F5D71 /* NetworkManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkManager;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
