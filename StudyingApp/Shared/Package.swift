@@ -14,9 +14,13 @@ let package = Package(
             name: "Shared",
             targets: [
                 "Components",
-                "NetworkManager"
+                "DataManagement",
+                "Models"
             ]
         ),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0")        
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -24,6 +28,9 @@ let package = Package(
         .target(
             name: "Components"),
         .target(
-            name: "NetworkManager")
+            name: "DataManagement",
+            dependencies: [.product(name: "Dependencies", package: "swift-dependencies")]),
+        .target(
+            name: "Models")
     ]
 )

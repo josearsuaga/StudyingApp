@@ -6,14 +6,12 @@
 //
 
 import SwiftUI
-import Home
-import NetworkManager
 
 @main
 struct StudyingAppApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView(viewModel: HomeViewModel(networkManager: NetworkManager()))
+           TabBarView()
         }
     }
 }

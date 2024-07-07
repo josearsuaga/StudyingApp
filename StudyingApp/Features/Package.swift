@@ -14,22 +14,47 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Features",
-            targets: ["Home"]
+            targets: [
+                "Home",
+                "Battle",
+                "PokemonDetail"
+            ]
         ),
     ],
     dependencies: [
-        .package(path: "../Shared")
+        .package(path: "../Shared"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "Home",
-            dependencies: ["Shared"]
+            dependencies: [
+                "Shared",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
+            name: "PokemonDetail",
+            dependencies: [
+                "Shared",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
+            name: "Battle",
+            dependencies: [
+                "Shared",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
         ),
         .testTarget(
             name: "HomeTests",
-            dependencies: ["Home"]
+            dependencies: [
+                "Home",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
         ),
     ]
 )

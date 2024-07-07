@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Components
-import NetworkManager
+import DataManagement
 
 
 
@@ -23,10 +23,9 @@ public struct HomeView: View {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)], spacing: 16) {
                 ForEach(viewModel.pokemons) { pokemon in
                     CardView(title: pokemon.name,
-                             subtitle: "",
-                             imageURL: pokemon.sprites?.frontDefault)
+                             subtitle: pokemon.type,
+                             imageURL: pokemon.image)
                 }
-                
             }
         }.task {
             await viewModel.load()
@@ -36,5 +35,5 @@ public struct HomeView: View {
 
 
 #Preview {
-    HomeView(viewModel: HomeViewModel(networkManager: NetworkManager()))
+    HomeView(viewModel: HomeViewModel())
 }
