@@ -31,9 +31,9 @@ public final class HomeViewModel: ObservableObject {
     
     
     func fetchPokemonCards() async throws -> [PokemonCardModel] {
+        let pokemonsList: PokemonList = try await networkManager.sendRequest(endpoint: PokemonListEndPoint())
+        let pokemonURLs = pokemonsList.results.compactMap { $0.url }
         return try await withThrowingTaskGroup(of: Pokemon?.self) { group in
-            let pokemonsList: PokemonList = try await networkManager.sendRequest(endpoint: PokemonListEndPoint())
-            let pokemonURLs = pokemonsList.results.compactMap { $0.url }
                 for pokemonURL in pokemonURLs {
                     group.addTask {
                         try? await self.networkManager.sendRequest(for: pokemonURL)
