@@ -7,12 +7,13 @@
 
 import Foundation
 import DataManagement
+import Dependencies
 import Models
 
 final public class BattleViewModel: ObservableObject {
     
-    private let networkManager = NetworkManager()
-    private let persistenceManager = PersistenceManager()
+    @Dependency(\.networkManager) var networkManager
+    @Dependency(\.persistenceManager) var persistenceManager    
     @Published var pokemonsForBattle: [PokemonBattleModel] = []
     var availablePokemons: [PokemonSearch] = []
     
@@ -34,10 +35,12 @@ final public class BattleViewModel: ObservableObject {
        
     
     func fetchBattlePokemonsFromNetwork() async throws -> [PokemonBattleModel] {
+        let pokemonsList: PokemonList = try await networkManager.sendRequest(endpoint: PokemonListEndPoint())
+        let pokemonURLs = pokemonsList.results.compactMap { $0.url }
+        let prefixNumber = pokemonURLs.count >= 5 ? 6 : pokemonURLs.count
+        let selectedURLs = pokemonURLs.shuffled().prefix(upTo: prefixNumber)
         return try await withThrowingTaskGroup(of: Pokemon?.self) { group in
-            let pokemonsList: PokemonList = try await networkManager.sendRequest(endpoint: PokemonListEndPoint())
-            let pokemonURLs = pokemonsList.results.compactMap { $0.url }
-            for pokemonURL in pokemonURLs {
+            for pokemonURL in selectedURLs {
                 group.addTask {
                     try? await self.networkManager.sendRequest(for: pokemonURL)
                 }
@@ -57,6 +60,16 @@ final public class BattleViewModel: ObservableObject {
             try await persistenceManager.saveData(data: pokemonsForBattle)
         } catch {
             print("Error saving values")
+        }
+    }
+    
+    @MainActor
+    func removeSavedPokemons() async {
+        do {
+            try await persistenceManager.removeData(data: pokemonsForBattle)
+            self.pokemonsForBattle = try await fetchBattlePokemonsFromNetwork()
+        } catch {
+            print("Error removing values")
         }
     }
     

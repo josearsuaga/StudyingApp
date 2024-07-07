@@ -8,7 +8,7 @@
 import Foundation
 import Dependencies
 
-public final class PersistenceManager: Persistable { 
+public final class PersistenceManager: Persistable {
     
     public init() { }
     
@@ -56,6 +56,19 @@ public final class PersistenceManager: Persistable {
         }
     }
     
+    public func removeData<T>(data: T) async throws where T : Decodable, T : Encodable {
+        guard let fileDirectory = getFileDirectory() else { throw PersistenceError.fileDirectoryUnavailable }
+        let fileName = "\(T.self).json"
+        let fileURL = fileDirectory.appendingPathComponent(fileName)
+        do {
+            try FileManager.default.removeItem(at: fileURL)
+        } catch {
+            throw PersistenceError.removingFailed
+        }
+        
+    }
+        
+    
     private func getFileDirectory() -> URL? {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
@@ -67,4 +80,11 @@ private enum PersistenceManagerKey: DependencyKey {
   static let liveValue: any Persistable = PersistenceManager()
   static let previewValue: any Persistable = PersistenceManager()
   static let testValue: any Persistable = PersistenceManager()
+}
+
+public extension DependencyValues {
+    var persistenceManager: Persistable {
+        get { self[PersistenceManagerKey.self] }
+        set { self[PersistenceManagerKey.self] = newValue }
+    }
 }

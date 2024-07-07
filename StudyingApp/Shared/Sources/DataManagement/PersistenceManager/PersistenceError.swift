@@ -13,4 +13,5 @@ enum PersistenceError: Error {
     case fetchDataFailed
     case encodingError
     case decodingerror
+    case removingFailed
 }

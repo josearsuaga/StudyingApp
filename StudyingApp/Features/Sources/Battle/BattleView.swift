@@ -26,10 +26,18 @@ public struct BattleView: View {
                     }
                 }
             }.padding(.vertical, 200)
-            Button("Save") {
-                Task {
-                    await viewModel.saveBattlePokemons()
+            HStack {
+                Button("Save") {
+                    Task {
+                        await viewModel.saveBattlePokemons()
+                    }
                 }
+                Button("Remove") {
+                    Task {
+                        await viewModel.removeSavedPokemons()
+                    }
+                }
+                
             }
             Spacer()
         }
