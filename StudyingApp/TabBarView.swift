@@ -8,6 +8,7 @@
 import SwiftUI
 import Home
 import Battle
+import Selection
 import DataManagement
 
 struct TabBarView: View {
@@ -23,7 +24,7 @@ struct TabBarView: View {
                     Image(systemName: "2.square.fill")
                     Text("Battle Random")
                 }
-            Text("Selection")
+            SelectionView(viewModel: SelectionViewModel())
                 .tabItem {
                     Image(systemName: "1.square.fill")
                     Text("Selection")

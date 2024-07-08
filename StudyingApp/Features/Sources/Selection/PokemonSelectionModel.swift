@@ -6,10 +6,17 @@
 //
 
 import Foundation
+import Models
 
-struct PokemonSelectionModel {
+struct PokemonSelectionModel: Identifiable {
+    let id: Int
     let name: String
-    let type: String
     let image: URL?
     var isSelected: Bool = false
+    
+    init(from pokemon: Pokemon) {
+        self.id = pokemon.id
+        self.name = pokemon.name
+        self.image = URL(string:pokemon.sprites.frontDefault)
+    }
 }

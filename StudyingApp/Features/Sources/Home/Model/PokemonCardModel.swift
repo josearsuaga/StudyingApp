@@ -18,6 +18,6 @@ struct PokemonCardModel: Identifiable {
         self.name = pokemon.name
         self.type = pokemon.types.first?.type.name ?? ""
         self.id = pokemon.id
-        self.image = URL(string: pokemon.sprites.frontShiny)
+        self.image = URL(string: pokemon.sprites.frontDefault)
     }
 }
