@@ -16,14 +16,15 @@ public struct SelectionView: View {
     }
     
     public var body: some View {
-        List(viewModel.pokemonSections) { section in
-            Section(section.title) {
+        List($viewModel.pokemonSections) { $section in
+            Section($section.wrappedValue.title) {
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(section.pokemons) { pokemon in
-                            CardView(title: pokemon.name,
+                        ForEach($section.pokemons) { $pokemon in
+                            CardView(title: $pokemon.wrappedValue.name,
                                      subtitle: "",
-                                     imageURL: pokemon.image)
+                                     imageURL: $pokemon.wrappedValue.image,
+                                     isSelected: $pokemon.isSelected)
                         }
                     }
                 }

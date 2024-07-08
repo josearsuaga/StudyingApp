@@ -11,7 +11,7 @@ import Models
 struct PokemonSelectionModel: Identifiable {
     let id: Int
     let name: String
-    let image: URL?
+    let image: URL? 
     var isSelected: Bool = false
     
     init(from pokemon: Pokemon) {

@@ -10,5 +10,5 @@ import Foundation
 struct PokemonSection: Identifiable {
     let id: UUID = UUID()
     let title: String
-    let pokemons: [PokemonSelectionModel]
+    var pokemons: [PokemonSelectionModel] = []
 }
