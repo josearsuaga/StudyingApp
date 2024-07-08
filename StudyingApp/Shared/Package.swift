@@ -15,7 +15,8 @@ let package = Package(
             targets: [
                 "Components",
                 "DataManagement",
-                "Models"
+                "Models",
+                "Repositories"
             ]
         ),
     ],
@@ -31,6 +32,10 @@ let package = Package(
             name: "DataManagement",
             dependencies: [.product(name: "Dependencies", package: "swift-dependencies")]),
         .target(
-            name: "Models")
+            name: "Models"),
+        .target(
+            name: "Repositories",
+            dependencies: [.product(name: "Dependencies", package: "swift-dependencies")]
+        )
     ]
 )

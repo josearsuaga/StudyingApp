@@ -9,13 +9,14 @@ import Foundation
 import DataManagement
 import Dependencies
 import Models
+import Repositories
 
 final public class BattleViewModel: ObservableObject {
     
-    @Dependency(\.networkManager) var networkManager
-    @Dependency(\.persistenceManager) var persistenceManager    
+    @Dependency(\.pokemonRepository) var repository
+    @Dependency(\.persistenceManager) var persistenceManager
     @Published var pokemonsForBattle: [PokemonBattleModel] = []
-    var availablePokemons: [PokemonSearch] = []
+    var availablePokemons: [Pokemon] = []
     
     public init() {
         
@@ -26,31 +27,28 @@ final public class BattleViewModel: ObservableObject {
         pokemonsForBattle = await fetchBattlePokemons()
         if pokemonsForBattle.isEmpty {
             do {
-                pokemonsForBattle = try await fetchBattlePokemonsFromNetwork()
+                availablePokemons = try await repository.fetchPokemons()
+                pokemonsForBattle = selectRandomPokemons(pokemons: availablePokemons,
+                                                         count: 5)
             } catch {
                 print("Error")
             }
         }
     }
-       
     
-    func fetchBattlePokemonsFromNetwork() async throws -> [PokemonBattleModel] {
-        let pokemonsList: PokemonList = try await networkManager.sendRequest(endpoint: PokemonListEndPoint())
-        let pokemonURLs = pokemonsList.results.compactMap { $0.url }
-        let prefixNumber = pokemonURLs.count >= 5 ? 6 : pokemonURLs.count
-        let selectedURLs = pokemonURLs.shuffled().prefix(upTo: prefixNumber)
-        return try await withThrowingTaskGroup(of: Pokemon?.self) { group in
-            for pokemonURL in selectedURLs {
-                group.addTask {
-                    try? await self.networkManager.sendRequest(for: pokemonURL)
-                }
-            }
-            var pokemonCards: [PokemonBattleModel] = []
-            for try await result in group.compactMap({$0}) {
-                pokemonCards.append(PokemonBattleModel(from: result))
-            }
-            return pokemonCards
+    func selectRandomPokemons(pokemons: [Pokemon], count: Int) -> [PokemonBattleModel] {
+        
+        //First we will select the fire type pokemon
+        guard let firePokemon = pokemons.filter( { $0.types.first?.type.name.lowercased() == "fire" })
+            .randomElement() else {
+            print("The array doesn't contain any fire pokemon")
+            return []
         }
+        
+        var selectedPokemons = [PokemonBattleModel(from: firePokemon)]
+        let otherPokemons = pokemons.filter( {$0.id != firePokemon.id } ).shuffled().prefix(count - 1).map( { PokemonBattleModel(from: $0) })
+        selectedPokemons.append(contentsOf: otherPokemons)
+        return selectedPokemons
     }
     
     
@@ -67,9 +65,25 @@ final public class BattleViewModel: ObservableObject {
     func removeSavedPokemons() async {
         do {
             try await persistenceManager.removeData(data: pokemonsForBattle)
-            self.pokemonsForBattle = try await fetchBattlePokemonsFromNetwork()
+            availablePokemons = try await repository.fetchPokemons()
+            pokemonsForBattle = selectRandomPokemons(pokemons: availablePokemons,
+                                                     count: 5)
         } catch {
             print("Error removing values")
+        }
+    }
+    
+    @MainActor
+    func shufflePokemons() async {
+        do {
+            if availablePokemons.isEmpty {
+                availablePokemons = try await repository.fetchPokemons()
+            }
+            pokemonsForBattle = selectRandomPokemons(pokemons: availablePokemons,
+                                                     count: 5)
+            
+        } catch {
+            print("Error shuffling pokemons")
         }
     }
     

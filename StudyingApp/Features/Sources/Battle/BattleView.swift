@@ -26,7 +26,7 @@ public struct BattleView: View {
                     }
                 }
             }.padding(.vertical, 200)
-            HStack {
+            HStack(spacing: 16) {
                 Button("Save") {
                     Task {
                         await viewModel.saveBattlePokemons()
@@ -35,6 +35,12 @@ public struct BattleView: View {
                 Button("Remove") {
                     Task {
                         await viewModel.removeSavedPokemons()
+                    }
+                }
+                
+                Button("Shuffle") {
+                    Task {
+                        await viewModel.shufflePokemons()
                     }
                 }
                 

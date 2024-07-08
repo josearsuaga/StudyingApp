@@ -17,6 +17,7 @@ let package = Package(
             targets: [
                 "Home",
                 "Battle",
+                "Selection",
                 "PokemonDetail"
             ]
         ),
@@ -44,6 +45,13 @@ let package = Package(
         ),
         .target(
             name: "Battle",
+            dependencies: [
+                "Shared",
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
+            name: "Selection",
             dependencies: [
                 "Shared",
                 .product(name: "Dependencies", package: "swift-dependencies")

@@ -9,42 +9,24 @@ import DataManagement
 import Dependencies
 import Foundation
 import Models
+import Repositories
 
 
 public final class HomeViewModel: ObservableObject {
     
-    @Dependency(\.networkManager) var networkManager
+    @Dependency(\.pokemonRepository) var repository
     @Published var pokemons: [PokemonCardModel] = []
     
     public init() { }
-        
+    
     
     @MainActor
     func load() async {
         do {
-            self.pokemons = try await fetchPokemonCards()
+            self.pokemons = try await repository.fetchPokemons().map({ PokemonCardModel(from: $0) })
         } catch {
             print("Error")
         }
         
     }
-    
-    
-    func fetchPokemonCards() async throws -> [PokemonCardModel] {
-        let pokemonsList: PokemonList = try await networkManager.sendRequest(endpoint: PokemonListEndPoint())
-        let pokemonURLs = pokemonsList.results.compactMap { $0.url }
-        return try await withThrowingTaskGroup(of: Pokemon?.self) { group in
-                for pokemonURL in pokemonURLs {
-                    group.addTask {
-                        try? await self.networkManager.sendRequest(for: pokemonURL)
-                    }
-                }
-                var pokemonCards: [PokemonCardModel] = []
-            for try await result in group.compactMap({$0}) {
-                pokemonCards.append(PokemonCardModel(from: result))
-            }
-                return pokemonCards
-            }
-    }
-    
 }
