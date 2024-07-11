@@ -9,6 +9,7 @@ import Dependencies
 import Foundation
 import Models
 import Repositories
+import SwiftUI
 
 public final class SelectionViewModel: ObservableObject {
     typealias PokemonType = String
@@ -45,6 +46,17 @@ public final class SelectionViewModel: ObservableObject {
         }
         
         return groupedPokemons.map( { PokemonSection(title: $0, pokemons: $1) })
+    }
+    
+    func selectPokemon(for pokemonToSelect: PokemonSelectionModel) {
+    
+        for (index, pokemonSection) in pokemonSections.enumerated() {
+            for (pokeIndex, pokemon) in pokemonSection.pokemons.enumerated() {
+                if pokemon.id == pokemonToSelect.id {
+                    pokemonSections[index].pokemons[pokeIndex].isSelected.toggle()
+                }
+            }
+        }
     }
     
 }

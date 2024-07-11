@@ -25,7 +25,9 @@ public struct BattleView: View {
                                  imageURL: pokemon.image)
                     }
                 }
-            }.padding(.vertical, 200)
+            }
+            .padding(.vertical, 200)
+            .accessibilityIdentifier("BattleView")
             HStack(spacing: 16) {
                 Button("Save") {
                     Task {

@@ -11,6 +11,7 @@ import Dependencies
 
 public struct NetworkManager: Networkable {
     
+    
     public init() {
         
     }
@@ -20,54 +21,32 @@ public struct NetworkManager: Networkable {
             throw NetworkError.invalidURL
         }
         
-        return try await withCheckedThrowingContinuation { continuation in
-            let task = URLSession.shared.dataTask(with: urlRequest) { data, response, _ in
-                guard response is HTTPURLResponse else {
-                    continuation.resume(throwing: NetworkError.invalidURL)
-                    return
-                }
-                guard let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode else {
-                    continuation.resume(throwing: NetworkError.unexpectedStatusCode)
-                    return
-                }
-                guard let data = data else {
-                    continuation.resume(throwing: NetworkError.unknownError)
-                    return
-                }
-                guard let decodedResponse = try? JSONDecoder().decode(T.self, from: data) else {
-                    continuation.resume(throwing: NetworkError.errorDecodingResponse)
-                    return
-                }
-                continuation.resume(returning: decodedResponse)
-            }
-            task.resume()
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        guard response is HTTPURLResponse else {
+            throw NetworkError.invalidURL
         }
+        guard let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode else {
+            throw NetworkError.unexpectedStatusCode
+        }
+        guard let decodedResponse = try? JSONDecoder().decode(T.self, from: data) else {
+            throw NetworkError.errorDecodingResponse
+        }
+        return decodedResponse
     }
     
     public func sendRequest<T>(for url: URL) async throws -> T where T : Decodable {
-        let urlRequest = URLRequest(url: url)
-        return try await withCheckedThrowingContinuation { continuation in
-            let task = URLSession.shared.dataTask(with: urlRequest) { data, response, _ in
-                guard response is HTTPURLResponse else {
-                    continuation.resume(throwing: NetworkError.invalidURL)
-                    return
-                }
-                guard let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode else {
-                    continuation.resume(throwing: NetworkError.unexpectedStatusCode)
-                    return
-                }
-                guard let data = data else {
-                    continuation.resume(throwing: NetworkError.unknownError)
-                    return
-                }
-                guard let decodedResponse = try? JSONDecoder().decode(T.self, from: data) else {
-                    continuation.resume(throwing: NetworkError.errorDecodingResponse)
-                    return
-                }
-                continuation.resume(returning: decodedResponse)
-            }
-            task.resume()
+        let urlRequest = URLRequest(url: url)        
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        guard response is HTTPURLResponse else {
+            throw NetworkError.invalidURL
         }
+        guard let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode else {
+            throw NetworkError.unexpectedStatusCode
+        }
+        guard let decodedResponse = try? JSONDecoder().decode(T.self, from: data) else {
+            throw NetworkError.errorDecodingResponse
+        }
+        return decodedResponse
     }
 }
 

@@ -25,6 +25,9 @@ public struct SelectionView: View {
                                      subtitle: "",
                                      imageURL: $pokemon.wrappedValue.image,
                                      isSelected: $pokemon.isSelected)
+                            .onTapGesture {
+                                viewModel.selectPokemon(for: $pokemon.wrappedValue)
+                            }
                         }
                     }
                 }

@@ -18,7 +18,8 @@ let package = Package(
                 "Home",
                 "Battle",
                 "Selection",
-                "PokemonDetail"
+                "PokemonDetail",
+                "Tasks"
             ]
         ),
     ],
@@ -56,6 +57,9 @@ let package = Package(
                 "Shared",
                 .product(name: "Dependencies", package: "swift-dependencies")
             ]
+        ),
+        .target(
+            name: "Tasks"
         ),
         .testTarget(
             name: "HomeTests",

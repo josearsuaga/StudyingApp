@@ -53,11 +53,10 @@ public struct CardView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
-               )
-        .onTapGesture {
-            isSelected.toggle()
-        }
+               )        
         .padding()
+        .accessibilityElement(children: .ignore)
+        .accessibility(identifier: "card_\(title.lowercased())")
     }
 }
 #Preview {
